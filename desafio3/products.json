@@ -1,0 +1,20 @@
+[
+    {
+        "title": "Remera Boca",
+        "price": 300,
+        "thumbnail": "https://i.pinimg.com/originals/ea/a5/b8/eaa5b8417e9e95389c1680098cad1348.jpg",
+        "id": 1
+    },
+    {
+        "title": "Remera Boca", 
+        "price": 300,
+        "thumbnail": "https://i.pinimg.com/originals/ea/a5/b8/eaa5b8417e9e95389c1680098cad1348.jpg",
+        "id": 2
+    },
+    {
+        "title": "Remera Boca",
+        "price": 300,
+        "thumbnail": "https://i.pinimg.com/originals/ea/a5/b8/eaa5b8417e9e95389c1680098cad1348.jpg",
+        "id": 3
+    }
+]
