@@ -9,11 +9,10 @@
 <body>
     <form 
     action="/api/productos" 
-    method="post"
-    enctype="application/json">
+    method="post">
     <div>
         <label>Title: </label>
-        <input type="text" name="name">
+        <input type="text" name="title">
     </div>
     <div>
         <label>Price: </label>
@@ -23,6 +22,7 @@
         <label>Image: </label>
         <input type="text" name="thumbnail">
     </div>
+    <button type="submit">Enviar</button>
     </form>
 </body>
 </html>

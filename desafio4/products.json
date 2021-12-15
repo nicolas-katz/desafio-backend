@@ -1,20 +1,17 @@
 [
     {
-        "title": "Remera Boca",
-        "price": 300,
-        "thumbnail": "https://i.pinimg.com/originals/ea/a5/b8/eaa5b8417e9e95389c1680098cad1348.jpg",
-        "id": 1
+        "title": "Remera",
+        "price": 200,
+        "thumbnail": "https://mlstaticquic-a.akamaihd.net/remeras-gucci-D_NQ_NP_666003-MLU28166636713_092018-F.jpg"
     },
     {
-        "title": "Remera Boca", 
-        "price": 300,
-        "thumbnail": "https://i.pinimg.com/originals/ea/a5/b8/eaa5b8417e9e95389c1680098cad1348.jpg",
-        "id": 2
+        "title": "Zapatos",
+        "price": 200,
+        "thumbnail": "https://megafono.com.co/wp-content/uploads/2020/05/Zapatos-elegantes-cafe-3.jpeg"
     },
     {
-        "title": "Remera Boca",
-        "price": 300,
-        "thumbnail": "https://i.pinimg.com/originals/ea/a5/b8/eaa5b8417e9e95389c1680098cad1348.jpg",
-        "id": 3
+        "title": "Pantalon",
+        "price": 500,
+        "thumbnail": "http://www.masmotoourense.com/uploads/productos/3423/2018/04/img1524066218.jpg"
     }
 ]
