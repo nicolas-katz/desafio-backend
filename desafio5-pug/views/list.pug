@@ -1,0 +1,13 @@
+html
+    head 
+        title="Desafio 5 - pug"
+    body
+        table 
+            th="Title"
+            th="Price"
+            th="Thumbnail"
+            - for(let index=0; index < list.length; index++)
+                tr
+                    td=list[i].title
+                    td=list[i].price
+                    td=list[i].thumbnail
