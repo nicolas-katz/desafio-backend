@@ -1,72 +1,45 @@
 const fs = require('fs')
 
-class Contenedor{
-    constructor(nombre_archivo){
-        this.nombre_archivo = nombre_archivo
+class Products{
+
+    constructor(fillname){
+        this.list = []
+        this.id = 0
+        this.fillname = fillname
+
+        this.init()
     }
 
-    static products = []
-    static setID = 0
-
-    async save(Object){
-        try {
-            Contenedor.setID++
-            Object.id = Contenedor.setID
-            Contenedor.products.push(Object)
-
-            await this.write()
-
-            return Contenedor.setID++
-        } catch (err) {
-            console.log(err)
+    init() {
+        let data = fs.readFileSync(this.fillname)
+        let listProducts = JSON.parse(data)
+        for(const obj of listProducts) {
+            this.insert(obj)
         }
     }
 
-    async write(){
-        await fs.promises.writeFile(this.nombre_archivo, JSON.stringify(Contenedor.products))
+    find(id) {
+        return this.list.find((obj) => obj.id == id)
     }
 
-    async getById(Number){
-        let readId = ''
-        try{
-            readId = Contenedor.products.find(e => e.id == Number) || null
-            return readId
-        } 
-        catch(err){
-            console.log(err)
-        }
-    }
-    
-    getAll(){
-        return Contenedor.products
+    insert(obj) {
+        obj.id = ++this.id
+        this.list.push(obj)
+        return this.list
     }
 
-    async deleteById(Number){
-        Contenedor.products = Contenedor.products.filter(e => e.id !== Number)
-        Contenedor.products.length === 1 ? this.write() : this.deleteAll()
+    update(id, obj) {
+        const i = this.list.findIndex((objeto) => objeto.id == id)
+        obj.id = this.list[i].id
+        this.list[i] = obj
+        return obj
     }
 
-    async deleteAll(){
-        return await fs.promises.writeFile(this.nombre_archivo, '')
+    delate(id){
+        this.list = this.list.filter(obj => obj.id !== id)
+        return this.list
     }
-    
-    async read(){
-        try{
-            let data = await fs.promises.readFile(this.nombre_archivo, 'utf-8')
-            Contenedor.products = JSON.parse(data)
-    
-            let lastId = 0
-            for(let element of Contenedor.products){
-                if(element.id > lastId) lastId = element.id
-            }
-            Contenedor.setID = lastId
-        }
-        catch(err){
-            console.log(err)
-        }
-    }
+
 }
 
-module.exports = Contenedor
-
-const usuario = new Contenedor("products.txt")
+module.exports = Products

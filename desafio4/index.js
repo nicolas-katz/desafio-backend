@@ -22,7 +22,7 @@ router.get('/:id', (req, res) =>{
     res.json(product)
 })
 
-router.post('/', async (req, res) =>{
+router.post('/', (req, res) =>{
     let product = req.body
     let createProduct = {
         title: product.title,
@@ -47,6 +47,7 @@ app.use(function(err, req, res, next) {
     res.status(err.status || 404).send({
         error: "Ocurrio un error 4xx"
     })  
+    next()
 })
 
 app.listen(process.env.PORT || 8080)
