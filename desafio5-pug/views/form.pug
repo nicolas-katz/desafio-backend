@@ -3,16 +3,16 @@ html
         title="Desafio 5 - pug"
     body 
         form(action="/api/productos" method="post")
-        div(
-            label= "Title :" 
-            input(type="text" id="title" name="title"))
-        div(
-            label= "Price :" 
-            input(type="text" id="price" name="price"))
-        div(
-            label= "Thumbnail :"
-            input(type="text" id="thumbnail" name="thumbnail"))
-        div(
-            input(type="submit"))
-        div(
-            a(href="/list")="Show products list")
+            div
+                label= "Title :" 
+                input(type="text" id="title" name="title")
+            div
+                label= "Price :" 
+                input(type="text" id="price" name="price")
+            div
+                label= "Thumbnail :"
+                input(type="text" id="thumbnail" name="thumbnail")
+            div
+                input(type="submit")
+            div
+                a(href="/list")="Show products list"
