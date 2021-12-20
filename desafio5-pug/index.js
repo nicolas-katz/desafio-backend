@@ -44,7 +44,8 @@ router.post('/', (req, res) =>{
         price: product.price,
         thumbnail: product.thumbnail
     }
-    return res.json(user.insert(createProduct))
+    res.json(user.insert(createProduct))
+    return res.redirect("/list")
 })
 
 router.put('/:id', (req, res) =>{
