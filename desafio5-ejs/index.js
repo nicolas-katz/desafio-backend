@@ -12,9 +12,11 @@ app.set('views', './views')
 app.get('/', (req, res) => {
     return res.render('form')
 })
+
 app.get('/list', (req, res) => {
+    const products = user.list
     return res.render('list', {
-        list: user.list
+        list: products
     })
 })
 

@@ -12,6 +12,7 @@ app.set('views', './views')
 app.get('/', (req, res) => {
     return res.render('form')
 })
+
 app.get('/list', (req, res) => {
     const products = user.list
     if (products.length === 0) return res.render('no-list')
