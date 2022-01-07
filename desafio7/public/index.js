@@ -1,13 +1,13 @@
-const socket = io()
+const SOCKET = io()
 
 document.querySelector('#username').innerHTML = `Hello, username`
 
 const chat = document.querySelector('#chat-products')
 
-socket.on('products', (data) => {
+SOCKET.on('products', (data) => {
     chat.innerHTML = ""
     fetch('http://localhost:3000/fetch')
-        .then(response => response.json())
+        .then(res => res.json())
         .then(data => {
             console.log(data)
             data.forEach(product => {

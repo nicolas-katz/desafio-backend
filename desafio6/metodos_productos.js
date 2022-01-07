@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-class Products{
+class Metodos{
 
     constructor(fillname){
         this.list = []
@@ -42,4 +42,4 @@ class Products{
 
 }
 
-module.exports = Products
+module.exports = Metodos

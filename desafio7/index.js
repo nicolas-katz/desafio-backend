@@ -1,81 +1,51 @@
-const express = require('express')
-const { Server: HttpServer } = require('http')
-const { Server: IOServer } = require('socket.io')
-const Products = require('./productsList');
-const { Router } = express;
-const user = new Products("products.json");
-const router = Router();
-require('dotenv').config();
+// Inicio Express.js
+import EXPRESS, { static } from 'express';
+const APP = EXPRESS();
 
-const app = express()
-const httpServer = new HttpServer(app)
-const io = new IOServer(httpServer)
+// Inicio el Router de Express.js
+import { Router } from 'express';
+const ROUTER = Router();
+APP.use('/api/productos', ROUTER);
+APP.use(static('./public'))
 
-app.set('view engine', 'ejs')
-app.set('views', './views')
+// Inicio Socket.io
+import { Server as HttpServer } from 'http';
+import { Server as IOServer } from 'socket.io';
+const HTTP_SERVER = new HttpServer(APP)
+const IO = new IOServer(HTTP_SERVER)
 
-app.get('/form', (req, res) => {
-    const products = user.list
-    return res.render('form', {
-        list: products
+const MESSAGE_CONTAINER = []
+
+// Traigo archivo de DB
+require('./DB.js').default
+const DB = new DB()
+
+// Rutas GET
+APP.get('/', (req, res) => res.sendFile('index.html', {root: __dirname}))
+
+ROUTER.get('/', (req, res) => {
+    const GET_DATA = DB.getData()
+    res.send(JSON.stringify(GET_DATA))
+})
+
+// Rutas IO
+IO.on('connection', (socket) =>{
+    socket.on('new_product', async (data) => {
+        await DB.saveData(data)
+        IO.sockets.emit('products', data)
     })
 })
 
-app.get('/list', (req, res) => {
-    const products = user.list
-    return res.render('list', {
-        list: products
+IO.on('connection', (socket)=>{
+    socket.emit('message', message)
+    socket.on('new_message', (data) => {
+        data.date = new Date().toLocaleDateString()
+        MESSAGE_CONTAINER.push(data)
+        IO.sockets.emit('message', [data])
     })
 })
 
-app.get('/fetch', (req, res) => {
-    const products = user.list
-    res.json(products)
-})
+// PORT
+const PORT = process.env.PORT || 3000
 
-app.use(express.json())
-app.use(express.urlencoded({ extended : true }))
-app.use(express.static('./public'))
-app.use('/api/productos', router)
-
-router.get('/', (req, res) =>{
-    return res.json(user.list)
-})
-
-router.get('/:id', (req, res) =>{
-    let id = req.params.id
-    let product = user.find(id)
-    if (product === undefined) return res.send("ID incorrecto")
-    res.json(product)
-})
-
-router.post('/', (req, res) =>{
-    let product = req.body
-    let createProduct = {
-        title: product.title,
-        price: product.price,
-        thumbnail: product.thumbnail
-    }
-    res.json(user.insert(createProduct))
-    return res.redirect("/list")
-})
-
-router.put('/:id', (req, res) =>{
-    let product = req.body
-    let id = req.params.id
-    return res.json(user.update(id, product))
-})
-
-router.delete('/:id', (req, res) =>{
-    let id = req.params.id
-    return res.json(user.delate(id))
-})
-
-app.use(function(err, req, res, next) {
-    res.status(err.status || 404).send({
-        error: "Ocurrio un error 4xx"
-    })  
-    next()
-})
-
-app.listen(process.env.PORT || 8080)
+HTTP_SERVER.listen( PORT , () => console.log(`Servidor funcionando en puerto: ${PORT}`))

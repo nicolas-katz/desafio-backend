@@ -1,23 +1,20 @@
-const socket = io()
+const SOCKET = io()
 
-document.querySelector('#username').innerHTML = `Hello, username`
+const CHAT = document.querySelector('#chat')
 
-const chat = document.querySelector('#chat-products')
-
-socket.on('products', (data) => {
-    chat.innerHTML = ""
-    fetch('http://localhost:3000/fetch')
-        .then(response => response.json())
+SOCKET.on('products', (data) => {
+    let PRODUCTS = [] //
+    CHAT.innerHTML = ""
+    fetch('http://localhost:3000/test')
+        .then(res => res.json())
         .then(data => {
             console.log(data)
-            data.forEach(product => {
-                chat.append(`
-                    <strong>${product.id}</strong>
-                    <div>
-                        <em>${product.title}</em>
-                        <em>${product.price}</em>
-                        <em>${product.thumbnail}</em>
-                    </div>
+            data.forEach(e => {
+                CHAT.append(`
+                    <strong>${e.id}</strong>
+                    <em>${e.title}</em>
+                    <em>${e.price}</em>
+                    <em>${e.thumbnail}</em>
                 `)
             })
         })

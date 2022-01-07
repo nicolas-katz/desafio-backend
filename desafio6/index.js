@@ -1,81 +1,38 @@
-const express = require('express')
-const { Server: HttpServer } = require('http')
-const { Server: IOServer } = require('socket.io')
-const Products = require('./productsList');
-const { Router } = express;
-const user = new Products("products.json");
-const router = Router();
-require('dotenv').config();
+import express, { static } from 'express'
+import { ROUTER } from 'express'
+const ROUTER = Router()
+import { Server as HttpServer } from 'http'
+import { Server as IOServer } from 'socket.io'
+import Contenedor from './contenedor.js'
+const USER = new Contenedor('./products.json')
 
-const app = express()
-const httpServer = new HttpServer(app)
-const io = new IOServer(httpServer)
+const APP = express()
+const HTTP_SERVER = new HttpServer(APP)
+const IO = new IOServer(HTTP_SERVER)
 
-app.set('view engine', 'ejs')
-app.set('views', './views')
+APP.use(static('./public'))
 
-app.get('/form', (req, res) => {
-    const products = user.list
-    return res.render('form', {
-        list: products
-    })
+APP.get('/', (req, res) => {
+    res.sendFile('index.html', {root: __dirname})
 })
 
-app.get('/list', (req, res) => {
-    const products = user.list
-    return res.render('list', {
-        list: products
-    })
+APP.get('/test', (req, res) => {
+    const PRODUCTS = USER.getAll()
+    res.json(PRODUCTS)
 })
 
-app.get('/fetch', (req, res) => {
-    const products = user.list
-    res.json(products)
+IO.on('connection', async socket => {
+    const PRODUCTS = await archivo.getAll()
+    console.log(PRODUCTS)
+    let NOW = new Date().toLocaleTimeString()
+    console.log(`[${NOW}] Se abrió una nueva conexión con Socket.io`)
+
+    socket.emit('products', PRODUCTS)
+
 })
 
-app.use(express.json())
-app.use(express.urlencoded({ extended : true }))
-app.use(express.static('./public'))
-app.use('/api/productos', router)
+APP.use('/api/productos', ROUTER)
 
-router.get('/', (req, res) =>{
-    return res.json(user.list)
-})
+const PORT = process.env.PORT || 3000
 
-router.get('/:id', (req, res) =>{
-    let id = req.params.id
-    let product = user.find(id)
-    if (product === undefined) return res.send("ID incorrecto")
-    res.json(product)
-})
-
-router.post('/', (req, res) =>{
-    let product = req.body
-    let createProduct = {
-        title: product.title,
-        price: product.price,
-        thumbnail: product.thumbnail
-    }
-    res.json(user.insert(createProduct))
-    return res.redirect("/list")
-})
-
-router.put('/:id', (req, res) =>{
-    let product = req.body
-    let id = req.params.id
-    return res.json(user.update(id, product))
-})
-
-router.delete('/:id', (req, res) =>{
-    let id = req.params.id
-    return res.json(user.delate(id))
-})
-
-app.use(function(err, req, res, next) {
-    res.status(err.status || 404).send({
-        error: "Ocurrio un error 4xx"
-    })  
-    next()
-})
-
-app.listen(process.env.PORT || 8080)
+HTTP_SERVER.listen( PORT, () => console.log(`Escuchando por puerto ${PORT}`))

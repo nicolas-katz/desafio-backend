@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-class Functions{
+class Contenedor{
     constructor(nombre_archivo){
         this.nombre_archivo = nombre_archivo
     }
@@ -67,4 +67,4 @@ class Functions{
     }
 }
 
-module.exports = Functions
+module.exports = Contenedor
