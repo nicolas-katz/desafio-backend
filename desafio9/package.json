@@ -1,0 +1,17 @@
+{
+  "name": "desafio9",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2",
+    "faker": "^6.6.6",
+    "normalizr": "^3.6.1"
+  }
+}

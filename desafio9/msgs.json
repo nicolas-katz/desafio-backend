@@ -1,0 +1,32 @@
+[
+    {
+      "author": {
+        "id": 1,
+        "nombre": "Nicolas",
+        "apellido": "Katz",
+        "alias": "Nico",
+        "avatar": "url1"
+      },
+      "text": "msg1"
+    },
+    {
+      "author": {
+        "id": 2,
+        "nombre": "Lucas",
+        "apellido": "Baredes",
+        "alias": "Luro",
+        "avatar": "url2"
+      },
+      "text": "msg2"
+    },
+    {
+      "author": {
+        "id": 3,
+        "nombre": "Martin",
+        "apellido": "Cohen",
+        "alias": "Marto",
+        "avatar": "url3"
+      },
+      "text": "msg3"
+    }
+  ]

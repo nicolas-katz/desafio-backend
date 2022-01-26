@@ -1,4 +1,4 @@
-const fs = require('fs')
+import { readFileSync } from 'fs';
 
 class Products{
 
@@ -6,12 +6,11 @@ class Products{
         this.list = []
         this.id = 0
         this.fillname = fillname
-
         this.init()
     }
 
     init() {
-        let data = fs.readFileSync(this.fillname)
+        let data = readFileSync(this.fillname)
         let listProducts = JSON.parse(data)
         for(const obj of listProducts) {
             this.insert(obj)
@@ -42,4 +41,4 @@ class Products{
 
 }
 
-module.exports = Products
+export default { Products }
